@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Response Platform | Emergency Reporting System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        success: '#10b981',
+                        gbv: '#dc2626',
+                        flood: '#2563eb',
+                        fire: '#f97316',
+                        terrorism: '#000000',
+                        accident: '#eab308',
+                        childAbuse: '#9333ea',
+                        deforestation: '#16a34a',
+                        storm: '#6b7280',
+                        disease: '#0d9488',
+                        illegalMining: '#78350f'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .emergency-card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .map-container {
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .map-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-bolt text-blue-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">Quick Response</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#home" class="text-gray-900 hover:text-blue-600 px-3 py-2 font-medium">Home</a>
+                    <a href="#about" class="text-gray-900 hover:text-blue-600 px-3 py-2 font-medium">About</a>
+                    <a href="#features" class="text-gray-900 hover:text-blue-600 px-3 py-2 font-medium">Features</a>
+                    <a href="#report" class="text-gray-900 hover:text-blue-600 px-3 py-2 font-medium">Report</a>
+                    <a href="#alerts" class="text-gray-900 hover:text-blue-600 px-3 py-2 font-medium">Alerts</a>
+                    <a href="#volunteer" class="text-gray-900 hover:text-blue-600 px-3 py-2 font-medium">Volunteer</a>
+                    <a href="#contact" class="text-gray-900 hover:text-blue-600 px-3 py-2 font-medium">Contact</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none transition duration-150 ease-in-out">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50">About</a>
+                <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50">Features</a>
+                <a href="#report" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50">Report</a>
+                <a href="#alerts" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50">Alerts</a>
+                <a href="#volunteer" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50">Volunteer</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 hover:bg-gray-50">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
+                        Rapid Emergency Response at Your Fingertips
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8">
+                        A real-time platform for reporting disasters and emergencies with AI-powered dispatch to get help when you need it most.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#report" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300 transform hover:scale-105">
+                            <i class="fas fa-bolt mr-2"></i> Report an Incident
+                        </a>
+                        <a href="#features" class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-6 rounded-lg text-lg shadow-lg transition duration-300">
+                            <i class="fas fa-info-circle mr-2"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden lg:block">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Emergency responders" class="rounded-xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-gray-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-blue-500 text-3xl mb-2">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">15,278</div>
+                    <div class="text-gray-600">Incidents Reported</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-green-500 text-3xl mb-2">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">3,456</div>
+                    <div class="text-gray-600">Trained Responders</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-yellow-500 text-3xl mb-2">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">22 min</div>
+                    <div class="text-gray-600">Avg Response Time</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-red-500 text-3xl mb-2">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">127</div>
+                    <div class="text-gray-600">Communities Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    About The Quick Response Platform
+                </h2>
+                <div class="mt-4 h-1 w-20 bg-blue-500 mx-auto"></div>
+            </div>
+            
+            <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div class="mb-8 lg:mb-0">
+                    <img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Emergency team working together" class="rounded-xl shadow-lg">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+                    <p class="text-gray-600 mb-6">
+                        To leverage technology for creating a rapid response ecosystem that connects citizens in distress with emergency services, volunteers, and community organizations in real-time, saving lives and reducing response times during critical situations.
+                    </p>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
+                    <p class="text-gray-600 mb-6">
+                        A world where no emergency goes unreported, and every call for help receives immediate attention through an intelligent, community-powered response network.
+                    </p>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Our Objectives</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Reduce emergency response times by 50% through real-time reporting and dispatch</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Empower communities with tools to report and respond to emergencies</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Build an AI-powered knowledge hub for disaster preparedness</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span>Create partnerships between citizens, NGOs and government agencies</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Platform Features
+                </h2>
+                <div class="mt-4 h-1 w-20 bg-blue-500 mx-auto"></div>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    Comprehensive tools designed to empower communities and save lives
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-blue-500 text-4xl mb-4">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Multi-Device Support</h3>
+                    <p class="text-gray-600">
+                        Report emergencies from any device - smartphones, tablets, desktops or even via SMS. Our platform works seamlessly across all platforms.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-green-500 text-4xl mb-4">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Real-Time Reporting</h3>
+                    <p class="text-gray-600">
+                        Instant reporting with GPS location tracking ensures help can find you quickly, even if you don't know your exact location.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-purple-500 text-4xl mb-4">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">AI-Powered Dispatch</h3>
+                    <p class="text-gray-600">
+                        Our intelligent system analyzes reports to dispatch the nearest, most appropriate responders based on incident type and severity.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-red-500 text-4xl mb-4">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Alert Systems</h3>
+                    <p class="text-gray-600">
+                        Get instant alerts about emergencies in your area through SMS, email, or push notifications with safety recommendations.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-yellow-500 text-4xl mb-4">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Community Engagement</h3>
+                    <p class="text-gray-600">
+                        Crowdsource verified information and coordinate community response efforts through our secure platform.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-teal-500 text-4xl mb-4">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Knowledge Hub</h3>
+                    <p class="text-gray-600">
+                        Access disaster preparedness resources, first aid guides, and emergency protocols contributed by experts worldwide.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Incident Reporting Section -->
+    <section id="report" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Report an Emergency
+                </h2>
+                <div class="mt-4 h-1 w-20 bg-blue-500 mx-auto"></div>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    Select the type of emergency you need to report to get immediate help
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- GBV -->
+                <div class="emergency-card bg-gbv hover:bg-gbv/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('gbv')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">GBV</h3>
+                    <p class="text-sm">Gender-Based Violence</p>
+                </div>
+                
+                <!-- Floods -->
+                <div class="emergency-card bg-flood hover:bg-flood/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('flood')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Floods</h3>
+                    <p class="text-sm">Water emergencies</p>
+                </div>
+                
+                <!-- Fire -->
+                <div class="emergency-card bg-fire hover:bg-fire/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('fire')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Fire Outbreaks</h3>
+                    <p class="text-sm">Structure/wildfires</p>
+                </div>
+                
+                <!-- Terrorism -->
+                <div class="emergency-card bg-terrorism hover:bg-terrorism/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('terrorism')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Terrorism</h3>
+                    <p class="text-sm">Violent attacks</p>
+                </div>
+                
+                <!-- Accidents -->
+                <div class="emergency-card bg-accident hover:bg-accident/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('accident')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-car-crash"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Accidents</h3>
+                    <p class="text-sm">Road/industrial</p>
+                </div>
+                
+                <!-- Child Abuse -->
+                <div class="emergency-card bg-childAbuse hover:bg-childAbuse/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('childAbuse')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Child Abuse</h3>
+                    <p class="text-sm">Protection services</p>
+                </div>
+                
+                <!-- Deforestation -->
+                <div class="emergency-card bg-deforestation hover:bg-deforestation/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('deforestation')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Deforestation</h3>
+                    <p class="text-sm">Environmental crime</p>
+                </div>
+                
+                <!-- Storms -->
+                <div class="emergency-card bg-storm hover:bg-storm/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('storm')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Storms</h3>
+                    <p class="text-sm">Tornadoes, cyclones</p>
+                </div>
+                
+                <!-- Disease -->
+                <div class="emergency-card bg-disease hover:bg-disease/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('disease')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-virus"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Disease</h3>
+                    <p class="text-sm">Outbreaks</p>
+                </div>
+                
+                <!-- Illegal Mining -->
+                <div class="emergency-card bg-illegalMining hover:bg-illegalMining/90 text-white p-6 rounded-xl shadow-md transition duration-300 emergency-card-hover text-center cursor-pointer" onclick="openReportModal('illegalMining')">
+                    <div class="text-4xl mb-3">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Illegal Mining</h3>
+                    <p class="text-sm">Environmental hazards</p>
+                </div>
+            </div>
+            
+            <!-- Other emergency form -->
+            <div class="mt-12 bg-gray-100 p-8 rounded-xl">
+                <div class="text-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-900">Don't see your emergency type listed?</h3>
+                    <p class="text-gray-600">Use our general emergency reporting form</p>
+                </div>
+                <button onclick="openReportModal('other')" class="w-full md:w-auto bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 flex items-center justify-center mx-auto">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> Report Other Emergency
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Modal -->
+    <div id="reportModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="modalTitle" class="text-2xl font-bold text-gray-900">Report Emergency</h3>
+                    <button onclick="closeReportModal()" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <form class="space-y-6">
+                    <div id="emergencyTypeIdentifier" class="hidden"></div>
+                    
+                    <div>
+                        <label for="emergencyDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea id="emergencyDescription" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Provide details about the emergency (what happened, number of people involved, current situation)"></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="emergencyLocation" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                            <input type="text" id="emergencyLocation" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Address or landmark">
+                        </div>
+                        
+                        <div>
+                            <label for="emergencyDateTime" class="block text-sm font-medium text-gray-700 mb-1">Date & Time</label>
+                            <input type="datetime-local" id="emergencyDateTime" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="emergencyMap" class="block text-sm font-medium text-gray-700 mb-1">Pin Location</label>
+                        <div class="map-container border border-gray-300 rounded-lg overflow-hidden">
+                            <div id="emergencyMap" class="h-full w-full bg-gray-200 flex items-center justify-center">
+                                <div class="text-center p-6">
+                                    <i class="fas fa-map-marker-alt text-3xl text-red-500 mb-2"></i>
+                                    <p class="text-gray-600">Click to place or drag the marker to your location</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="emergencyFiles" class="block text-sm font-medium text-gray-700 mb-1">Upload Evidence (Photos/Videos)</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                            <div class="space-y-1 text-center">
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="emergencyFiles" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                        <span>Upload files</span>
+                                        <input id="emergencyFiles" type="file" class="sr-only" multiple>
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs text-gray-500">PNG, JPG, MP4 up to 10MB</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input id="anonymousCheckbox" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="anonymousCheckbox" class="ml-2 block text-sm text-gray-700">Submit anonymously (your contact info won't be shared)</label>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" onclick="closeReportModal()" class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            <i class="fas fa-bullhorn mr-2"></i> Send Emergency Alert
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Section -->
+    <section id="alerts" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Real-Time Emergency Alerts
+                </h2>
+                <div class="mt-4 h-1 w-20 bg-blue-500 mx-auto"></div>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    Latest verified emergency reports in your area
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Alert 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-red-500">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0 bg-red-100 p-3 rounded-full">
+                                <i class="fas fa-fire text-red-500 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Fire Outbreak</h3>
+                                <p class="text-sm text-gray-500">Reported 15 minutes ago</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Residential building fire at 143 Main Street. Emergency services dispatched. Avoid area.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                Critical
+                            </span>
+                            <span class="text-sm text-gray-500">
+                                2.3 miles away
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Alert 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-blue-500">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-water text-blue-500 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Flood Warning</h3>
+                                <p class="text-sm text-gray-500">Reported 1 hour ago</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Rising water levels reported near Riverdale area. Residents advised to move to higher ground.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                High Risk
+                            </span>
+                            <span class="text-sm text-gray-500">
+                                5.1 miles away
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Alert 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-yellow-500">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0 bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-car-crash text-yellow-500 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Major Accident</h3>
+                                <p class="text-sm text-gray-500">Reported 45 minutes ago</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Multi-vehicle collision on Highway 27 near exit 14. Heavy traffic expected. Take alternate routes.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                Medium Risk
+                            </span>
+                            <span class="text-sm text-gray-500">
+                                8.7 miles away
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 inline-flex items-center">
+                    <i class="fas fa-bell mr-2"></i> Sign Up for Custom Alerts
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <section id="volunteer" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl mb-6">
+                        Join Our Response Network
+                    </h2>
+                    <div class="h-1 w-20 bg-blue-500 mb-8"></div>
+                    
+                    <p class="text-gray-600 mb-6">
+                        Become part of a global network of volunteers and organizations trained to respond to emergencies and disasters. Whether you're an individual, community group, NGO, or government agency, we need your help.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Why Volunteer?</h3>
+                    <ul class="space-y-3 text-gray-600 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mr-2 mt-1"></i>
+                            <span>Receive specialized training in emergency response</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mr-2 mt-1"></i>
+                            <span>Be notified of emergencies in your area where you can help</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mr-2 mt-1"></i>
+                            <span>Join a network of verified first responders</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mr-2 mt-1"></i>
+                            <span>Make a real difference in your community</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Sign Up to Volunteer</h3>
+                    
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                                <input type="text" id="firstName" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                                <input type="text" id="lastName" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input type="tel" id="phone" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                            <input type="text" id="address" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="organization" class="block text-sm font-medium text-gray-700">Organization (if applicable)</label>
+                            <input type="text" id="organization" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="skills" class="block text-sm font-medium text-gray-700">Skills/Qualifications</label>
+                            <select id="skills" multiple class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <option>First Aid Certified</option>
+                                <option>EMT/Paramedic</option>
+                                <option>Medical Professional</option>
+                                <option>Firefighting</option>
+                                <option>Search & Rescue</option>
+                                <option>Crisis Counseling</option>
+                                <option>Logistics</option>
+                                <option>Translation Services</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
+                            <select id="availability" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <option>Weekdays</option>
+                                <option>Weekends</option>
+                                <option>Evenings</option>
+                                <option>24/7 On-Call</option>
+                                <option>Seasonal</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input id="agreeTerms" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="agreeTerms" class="ml-2 block text-sm text-gray-700">I agree to receive emergency notifications and training opportunities</label>
+                        </div>
+                        
+                        <div>
+                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300">
+                                Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Contact Quick Response
+                </h2>
+                <div class="mt-4 h-1 w-20 bg-blue-500 mx-auto"></div>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    Reach out to us for emergencies, partnerships, or general inquiries
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-center mb-4">
+                        <div class="inline-flex items-center justify-center bg-red-100 rounded-full p-4">
+                            <i class="fas fa-phone-alt text-red-500 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Emergency Helplines</h3>
+                    <ul class="space-y-2 text-center text-gray-600">
+                        <li>National Emergency: <span class="font-semibold">911</span></li>
+                        <li>Medical Emergency: <span class="font-semibold">112</span></li>
+                        <li>Police: <span class="font-semibold">999</span></li>
+                        <li>Fire Department: <span class="font-semibold">998</span></li>
+                        <li>GBV Hotline: <span class="font-semibold">0800 123 456</span></li>
+                        <li>Child Protection: <span class="font-semibold">0800 456 789</span></li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-center mb-4">
+                        <div class="inline-flex items-center justify-center bg-blue-100 rounded-full p-4">
+                            <i class="fas fa-envelope text-blue-500 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Send Us a Message</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="contactName" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="contactName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="contactEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="contactEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="contactSubject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <select id="contactSubject" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>General Inquiry</option>
+                                <option>Emergency Report</option>
+                                <option>Partnership</option>
+                                <option>Media Inquiry</option>
+                                <option>Technical Support</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="contactMessage" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="contactMessage" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-center mb-4">
+                        <div class="inline-flex items-center justify-center bg-green-100 rounded-full p-4">
+                            <i class="fas fa-map-marker-alt text-green-500 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Visit Our Office</h3>
+                    <address class="text-center not-italic text-gray-600 mb-4">
+                        123 Emergency Lane<br>
+                        Response Center, RC 12345<br>
+                        United Response Territories
+                    </address>
+                    <div class="map-container rounded-lg overflow-hidden">
+                        <div class="h-full w-full bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-map-marked-alt text2xl text-blue-500"></i>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-gray-600">
+                            <i class="fas fa-clock mr-2"></i> Open 24/7 for emergencies<br>
+                            <i class="fas fa-door-open mr-2"></i> Office hours: 8 AM - 6 PM
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Quick Response</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="hover:text-white">About Us</a></li>
+                        <li><a href="#features" class="hover:text-white">Features</a></li>
+                        <li><a href="#volunteer" class="hover:text-white">Get Involved</a></li>
+                        <li><a href="#contact" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">Emergency Protocols</a></li>
+                        <li><a href="#" class="hover:text-white">First Aid Guides</a></li>
+                        <li><a href="#" class="hover:text-white">Disaster Preparedness</a></li>
+                        <li><a href="#" class="hover:text-white">Training Materials</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Data Protection</a></li>
+                        <li><a href="#" class="hover:text-white">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 hover:bg-blue-600 flex items-center justify-center">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 hover:bg-blue-400 flex items-center justify-center">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 hover:bg-red-500 flex items-center justify-center">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 hover:bg-pink-600 flex items-center justify-center">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm">
+                        Subscribe to our newsletter for safety tips and updates
+                    </p>
+                    <div class="mt-2 flex">
+                        <input type="email" class="px-3 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" placeholder="Your email">
+                        <button class="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-r-lg text-white">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
+                <p>&copy; 2023 Quick Response Platform. All rights reserved.</p>
+                <p class="mt-2">A lifeline when seconds count.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Emergency Floating Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="openReportModal('emergency')" class="bg-red-500 hover:bg-red-600 text-white font-bold h-16 w-16 rounded-full shadow-xl flex items-center justify-center transition-transform duration-300 hover:scale-110">
+            <i class="fas fa-bolt text-2xl"></i>
+        </button>
+    </div>
+
+    <script>
+        // Toggle mobile menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Open emergency report modal
+        function openReportModal(type) {
+            const modal = document.getElementById('reportModal');
+            const title = document.getElementById('modalTitle');
+            const emergencyType = document.getElementById('emergencyTypeIdentifier');
+            
+            switch(type) {
+                case 'gbv':
+                    title.textContent = 'Report Gender-Based Violence';
+                    emergencyType.textContent = 'GBV';
+                    break;
+                case 'flood':
+                    title.textContent = 'Report Flooding';
+                    emergencyType.textContent = 'Flood';
+                    break;
+                case 'fire':
+                    title.textContent = 'Report Fire Outbreak';
+                    emergencyType.textContent = 'Fire';
+                    break;
+                case 'terrorism':
+                    title.textContent = 'Report Terrorism Activity';
+                    emergencyType.textContent = 'Terrorism';
+                    break;
+                case 'accident':
+                    title.textContent = 'Report Accident';
+                    emergencyType.textContent = 'Accident';
+                    break;
+                case 'childAbuse':
+                    title.textContent = 'Report Child Abuse';
+                    emergencyType.textContent = 'Child Abuse';
+                    break;
+                case 'deforestation':
+                    title.textContent = 'Report Deforestation';
+                    emergencyType.textContent = 'Deforestation';
+                    break;
+                case 'storm':
+                    title.textContent = 'Report Storm/Tornado';
+                    emergencyType.textContent = 'Storm';
+                    break;
+                case 'disease':
+                    title.textContent = 'Report Disease Outbreak';
+                    emergencyType.textContent = 'Disease';
+                    break;
+                case 'illegalMining':
+                    title.textContent = 'Report Illegal Mining';
+                    emergencyType.textContent = 'Illegal Mining';
+                    break;
+                case 'other':
+                    title.textContent = 'Report Other Emergency';
+                    emergencyType.textContent = 'Other';
+                    break;
+                case 'emergency':
+                    title.textContent = 'Emergency Report';
+                    emergencyType.textContent = 'Emergency';
+                    break;
+                default:
+                    title.textContent = 'Report Emergency';
+                    emergencyType.textContent = 'General';
+            }
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close emergency report modal
+        function closeReportModal() {
+            const modal = document.getElementById('reportModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
